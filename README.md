@@ -85,5 +85,8 @@ The project is a personal experiment to test the capabilities of AI in reverse e
 
 That's why I do not recommend using this project with the expectation of a fully reliable and safe experience. The code may contain errors, bugs, or vulnerabilities that could lead to unexpected behavior or **even damage to your device**.
 
+## Contributing
+Fork the repo, branch from `develop` and open a PR against `develop` of this repository. Use Conventional Commits with descriptive messages. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 [MIT](LICENSE)

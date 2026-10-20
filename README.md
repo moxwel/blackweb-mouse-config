@@ -6,10 +6,15 @@ Reading and writing the configuration has been confirmed on a real MA32AIY model
 > [!WARNING]
 > **Disclaimer.** This project was created using AI tools. It was a personal project to test the [Reverse Engineer Anything (REA)](https://github.com/morluto/rea) skill. **It is not intended to replace the official application.**
 
-> [!WARNING]
+> [!CAUTION]
 > **Use at your own risk.** Although the script always backs up the device memory before writing, I can't guarantee that it is safe to use. I don't know if it's possible to brick the mouse if the wrong values are written.
 
+> [!IMPORTANT]
 > **This project is not affiliated with or endorsed by Blackweb or Walmart.** The protocol was reverse-engineered from the vendor app (see [PROTOCOL.md](PROTOCOL.md)) using [Reverse Engineer Anything (REA)](https://github.com/morluto/rea).
+
+## Screenshots
+
+![preview](./docs/preview.png)
 
 ## Supported mice
 | Model | USB ID |
@@ -38,7 +43,7 @@ Activate the venv (`source .venv/bin/activate`, on Windows `.venv\Scripts\activa
 cd src
 ```
 
-> [!CAUTION]
+> [!TIP]
 > Close the vendor app before using this tool, so both don't talk to the mouse at once.
 
 ## GUI

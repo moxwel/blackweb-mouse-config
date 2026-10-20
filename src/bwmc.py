@@ -10,6 +10,7 @@ PIDS = {0x1170: "MA32AIY", 0x1093: "AYC", 0x1146: "AYU"}
 USAGE_PAGE = 0xFF32
 RID = 4                      # output/input report id, 64 bytes incl. id
 ST_ADDR, FL_ADDR, FL_LEN = 0xBE00, 0xC000, 0x1000
+BACKUPS = pathlib.Path(__file__).resolve().parent / "backups"   # next to this script
 POLL = {125: 8, 250: 4, 500: 2, 1000: 1}
 EFFECTS = ["pulse", "blink", "on", "fluid"]
 BRIGHT = [0, 1, 2, 4]        # app maps slider pos 3 -> 4
@@ -272,7 +273,7 @@ def main():
         return cfg.show()
     if a.op == "backup":
         return open(a.file, "wb").write(bytes(st) + bytes(cfg.fl))
-    bak = pathlib.Path(__file__).parent / "backups" / f"bwmc-{m.model}-{time.strftime('%Y%m%d%H%M%S')}.bin"   # device state before every write
+    bak = BACKUPS / f"bwmc-{m.model}-{time.strftime('%Y%m%d%H%M%S')}.bin"   # device state before every write
     bak.parent.mkdir(exist_ok=True)
     bak.write_bytes(bytes(st) + bytes(cfg.fl))
     print(f"previous config saved to {bak}")

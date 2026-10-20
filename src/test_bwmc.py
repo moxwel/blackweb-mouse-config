@@ -2,7 +2,7 @@
 import pathlib
 from bwmc import CATALOGUE, Config, Mouse, macro_record, combo_record
 
-APP = pathlib.Path(__file__).parent / "Blackweb Gaming AP" / "config"   # vendor app, not redistributed
+APP = pathlib.Path(__file__).resolve().parent / "Blackweb Gaming AP" / "config"   # vendor app, not redistributed
 
 if APP.exists():
     prof = (APP / "Default1.MA32AIY").read_bytes()

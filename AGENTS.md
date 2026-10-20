@@ -8,16 +8,16 @@ Unofficial, cross-platform configurator for Blackweb gaming mice (USB VID 0x3938
 ## Commands
 ```
 python -m venv .venv && .venv/Scripts/pip install -r requirements.txt   # (.venv/bin/... on Linux/macOS)
-.venv/Scripts/python test_bwmc.py      # the only test file; plain asserts, prints "ok"
-.venv/Scripts/python bwmc.py show      # read-only; safe against a real mouse
-.venv/Scripts/python bwmc_gui.py
+.venv/Scripts/python src/test_bwmc.py      # the only test file; plain asserts, prints "ok"
+.venv/Scripts/python src/bwmc.py show      # read-only; safe against a real mouse
+.venv/Scripts/python src/bwmc_gui.py
 ```
 - There is no linter or build step.
 - `test_bwmc.py` needs no mouse; it uses a `FakeHid` stand-in.
-- The cross-checks against the vendor's own files only run when the proprietary `Blackweb Gaming AP/` folder sits next to the scripts. That folder is gitignored and must never be committed.
+- The cross-checks against the vendor's own files only run when the proprietary `Blackweb Gaming AP/` folder sits in `src/`, next to `test_bwmc.py`. That folder is gitignored and must never be committed.
 
 ## Architecture
-**`bwmc.py`** is everything device-related, in one file:
+**`src/bwmc.py`** is everything device-related, in one file:
 - **`CATALOGUE`**: the vendor's 60 predefined button actions, copied byte for byte from the exe table.
 - **Record encoders**: `combo_record` and `macro_record`.
 - **`Config`**: the device image, split into two parts:
@@ -29,7 +29,7 @@ python -m venv .venv && .venv/Scripts/pip install -r requirements.txt   # (.venv
 **Write flow** in `main()`:
 1. `load()`: cmd 1, then read the settings block and the button flash.
 2. Mutate `Config`.
-3. Save a timestamped backup to `backups/` next to the script, before every write.
+3. Save a timestamped backup to `src/backups/` (next to the script), before every write.
 4. `save()`:
    - Call `finalize()` first. It recomputes the SHIFT and Smart-Key masks, remaps brightness 3→4, and recomputes every checksum (`0x8032 + Σ`).
    - Send `02`, then `05` to write the settings, then `06` erase + `04` write for each changed sector, then `07`.
@@ -41,7 +41,7 @@ python -m venv .venv && .venv/Scripts/pip install -r requirements.txt   # (.venv
 - At least one button's primary layer must stay left-click (label 0x0D), the same rule the vendor app enforces.
 - A record is 254 bytes: `[type][label][mode][n]` plus up to 125 two-byte tokens.
 
-**`bwmc_gui.py`** (Tkinter/ttk) is a **wrapper**:
+**`src/bwmc_gui.py`** (Tkinter/ttk) is a **wrapper**:
 - It runs `bwmc.py` as a subprocess for every device action, streams the output into its log pane, and never opens the device itself.
 - It imports `bwmc` only for its tables and encoders, which it uses to show the raw bytes a selection will write.
 - It learns the mouse's current state by **regex-parsing the text output of `bwmc.py show`** in `App.parse()`. If you change `Config.show()`'s format, update `parse()` too.

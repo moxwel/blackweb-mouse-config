@@ -1,5 +1,5 @@
 # blackweb-mouse-config
-Unofficial cross-platform configurator for Blackweb gaming mice. It works as an alternative to the Windows-only "Blackweb Gaming AP" app on Windows, macOS and Linux. It has a command-line tool (`bwmc.py`) and a small GUI (`bwmc_gui.py`).
+Unofficial cross-platform configurator for Blackweb gaming mice. It works as an alternative to the Windows-only "Blackweb Gaming AP" app on Windows, macOS and Linux. It has a command-line tool (`src/bwmc.py`) and a small GUI (`src/bwmc_gui.py`).
 
 Reading and writing the configuration has been confirmed on a real MA32AIY model.
 
@@ -21,7 +21,7 @@ Reading and writing the configuration has been confirmed on a real MA32AIY model
 What you can set: polling rate, 6 DPI slots (level, colour, on/off), lighting (effect, mode, speed, brightness, logo and side colour, fluid direction), and button assignments. Buttons can be predefined actions, key combos or macros, on both the normal and the SHIFT layer.
 
 ## Install
-Requires Python 3.8 or newer.
+Requires Python 3.9 or newer.
 ```
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt        # Windows: .venv\Scripts\pip install -r requirements.txt
@@ -32,6 +32,11 @@ On Linux:
   ```
   KERNEL=="hidraw*", ATTRS{idVendor}=="3938", MODE="0660", TAG+="uaccess"
   ```
+
+Activate the venv (`source .venv/bin/activate`, on Windows `.venv\Scripts\activate`), then run everything from inside `src/`:
+```
+cd src
+```
 
 > [!CAUTION]
 > Close the vendor app before using this tool, so both don't talk to the mouse at once.
@@ -58,13 +63,13 @@ python bwmc.py restore my.bin
 Macro steps: `+key` presses, `-key` releases, a number waits that many milliseconds, and `wheel+1` / `wheel-1` scroll. Keys are letters, digits, `f1`–`f12`, names like `enter` or `space`, `ctrl`/`shift`/`alt`/`win`, mouse buttons `lmb`/`rmb`/`mmb`/`back`/`fwd`, or a raw HID usage like `0xe3`.
 
 ## Backups
-Before every write, the mouse's current configuration is saved to `backups/bwmc-<model>-YYYYMMDDHHMMSS.bin`, next to the scripts. Load any of these with `restore` or from the GUI's Backup tab.
+Before every write, the mouse's current configuration is saved to `backups/bwmc-<model>-YYYYMMDDHHMMSS.bin`, next to the scripts (`src/backups/`). Load any of these with `restore` or from the GUI's Backup tab.
 
 ## Tests
 ```
 python test_bwmc.py
 ```
-These run offline, against a fake device. If you have the vendor app installed, copy its `Blackweb Gaming AP` folder next to the scripts. The test then also checks checksums, the predefined actions and macro encoding against the vendor's own files.
+These run offline, against a fake device. If you have the vendor app installed, copy its `Blackweb Gaming AP` folder into `src/`, next to `test_bwmc.py`. The test then also checks checksums, the predefined actions and macro encoding against the vendor's own files.
 
 ## License
 [MIT](LICENSE)

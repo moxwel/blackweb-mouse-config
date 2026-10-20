@@ -6,8 +6,8 @@ from tkinter import ttk, colorchooser, filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
 import bwmc
 
-HERE = pathlib.Path(__file__).parent
-BACKUPS = HERE / "backups"
+HERE = pathlib.Path(__file__).resolve().parent
+BACKUPS = bwmc.BACKUPS
 KEEP = "(keep)"
 SPEED = {"fast": "1", "medium": "2", "slow": "3"}
 

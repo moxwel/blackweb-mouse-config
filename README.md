@@ -4,7 +4,7 @@ Unofficial cross-platform configurator for Blackweb gaming mice. It works as an 
 Reading and writing the configuration has been confirmed on a real MA32AIY model.
 
 > [!WARNING]
-> **Disclaimer.** This project was created using AI tools. It was a personal project to test the [Reverse Engineer Anything (REA)](https://github.com/morluto/rea) skill. **It is not intended to replace the official application.**
+> **Disclaimer.** This project was created using AI tools. It was a personal project to test the [Reverse Engineer Anything (REA)](https://github.com/morluto/rea) skill capabilities. **It is not intended to replace the official application.** See the [AI usage disclosure](#ai-usage-disclosure) section below.
 
 > [!CAUTION]
 > **Use at your own risk.** Although the script always backs up the device memory before writing, I can't guarantee that it is safe to use. I don't know if it's possible to brick the mouse if the wrong values are written.
@@ -75,6 +75,15 @@ Before every write, the mouse's current configuration is saved to `backups/bwmc-
 python test_bwmc.py
 ```
 These run offline, against a fake device. If you have the vendor app installed, copy its `Blackweb Gaming AP` folder into `src/`, next to `test_bwmc.py`. The test then also checks checksums, the predefined actions and macro encoding against the vendor's own files.
+
+## AI usage disclosure
+I want to provide transparency and honesty about the use of AI in this project.
+
+This project has been developed with AI tools. AI was used to generate code **without manual intervention or manual deep review** (in short, it was _vibecoded_).
+
+The project is a personal experiment to test the capabilities of AI in reverse engineering and software development.
+
+That's why I do not recommend using this project with the expectation of a fully reliable and safe experience. The code may contain errors, bugs, or vulnerabilities that could lead to unexpected behavior or **even damage to your device**.
 
 ## License
 [MIT](LICENSE)
